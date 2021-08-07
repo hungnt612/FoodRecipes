@@ -112,8 +112,34 @@ const Home = ({navigation}) => {
           showsHorizontalScrollIndicator={false}
           keyExtractor={item => `${item.id}`}
           renderItem={({item, index}) => {
-            return <TrendingCard trendingItem={item}></TrendingCard>;
+            return (
+              <TrendingCard
+                trendingItem={item}
+                containerStyle={{
+                  marginLeft: index == 0 ? SIZES.padding : 0,
+                }}
+                onPress={() =>
+                  navigation.navigate('Recipe', {recipe: item})
+                }></TrendingCard>
+            );
           }}></FlatList>
+      </View>
+    );
+  };
+
+  const categorySection = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginTop: 20,
+          marginHorizontal: SIZES.padding,
+        }}>
+        <Text style={{flex: 1, ...FONTS.h2}}>Categories</Text>
+        <TouchableOpacity style={{}}>
+          <Text style={{color: COLORS.gray, ...FONTS.h4}}>View all</Text>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -131,6 +157,7 @@ const Home = ({navigation}) => {
             {searchBarSection()}
             {recipeCardSection()}
             {trendingSection()}
+            {categorySection()}
           </View>
         }
         renderItem={({item}) => {
